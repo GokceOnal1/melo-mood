@@ -3,19 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Melo Mood - Login</title>
+    <title>Log In</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: rgb(255,145,6);
+            background: linear-gradient(90deg, rgba(255,145,6,1) 0%, rgba(255,225,10,1) 100%, rgba(0,212,255,1) 100%);
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #000000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            font-size: 2em;
+            color: #333;
+        }
+        header img {
+            height: 50px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 100px); /* Adjust to leave room for header */
+        }
+        .card {
+            background: rgb(255,145,6);
+            background: linear-gradient(90deg, rgba(255,145,6,1) 0%, rgba(255,225,10,1) 100%, rgba(0,212,255,1) 100%);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            height: 400px;
+            width: 350px;
+        }
+        h2 {
+            text-align: center;
+            color: #555;
+        }
+        .username, .password {
+            margin: 10px 0;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #000000;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        input[type="submit"]:hover {
+            background-color: #ffffff;
+            color: black;
+        }
+        .google-signin {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+    </style>
+    <!-- Google API Script -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
-    <h1> melo mood </h1>
-
     <header>
-        <div class="Logo"> <img src=""></div>
+        <div class="Logo">
+            <img src="logo.png" alt="Melo Mood Logo">
+        </div>
+        <h1>Melo Mood</h1>
     </header>
 
-    <div class="Login card">
-        <h2> LOGIN</h2>
-        <div class="username"></div>
+    <div class="container">
+        <div class="card">
+            <h2>LOGIN</h2>
+            <form>
+                <div class="username">
+                    <input type="text" placeholder="Username" required>
+                </div>
+                <div class="password">
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <div>
+                    <input type="submit" value="Login">
+                </div>
+            </form>
 
+            <!-- Google Sign-In Button -->
+            <div class="google-signin">
+                <div id="g_id_onload"
+                     data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                     data-callback="handleCredentialResponse"
+                     data-auto_prompt="false">
+                </div>
+                <div class="g_id_signin" 
+                     data-type="standard"
+                     data-shape="rectangular"
+                     data-theme="outline"
+                     data-text="sign_in_with"
+                     data-size="large"
+                     data-logo_alignment="left">
+                </div>
+                
+                <!-- Google Sign-Up Button (same as sign-in but labeled differently) -->
+                <div style="margin-top: 10px;">
+                    <button class="g_id_signin"
+                        data-type="standard"
+                        data-shape="rectangular"
+                        data-theme="outline"
+                        data-text="Sign Up with Google"
+                        data-size="large"
+                        data-logo_alignment="left">
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script>
+        function handleCredentialResponse(response) {
+            const data = jwt_decode(response.credential); // JWT decoding library needed
+            console.log("User information from Google:", data);
+
+            // Use the data to create an account in your backend
+            // Example of data:
+            // data.name
+            // data.email
+            // data.picture (profile picture URL)
+        }
+    </script>
 </body>
 </html>
