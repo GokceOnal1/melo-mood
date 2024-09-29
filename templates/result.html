@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melo AI</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Poppins', sans-serif; /* Use Poppins font for a modern look */
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(90deg, rgba(255, 145, 6, 1) 0%, rgba(255, 225, 10, 1) 100%);
+            color: #333; /* Default text color */
+        }
+
+        /* Header Styles */
+        h1 {
+            text-align: center;
+            margin-top: 20px; /* Space above the title */
+        }
+
+        /* Container Styles */
+        .container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px; /* Added padding for spacing */
+        }
+
+        /* Card Styles */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            max-width: 90%;
+            text-align: center; /* Center-align text in the card */
+        }
+
+        .card h2 {
+            color: #333333;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        /* Song Recommendations Styles */
+        .recommendations {
+            margin-top: 20px; /* Space between title and recommendations */
+        }
+
+        ul {
+            list-style-type: none; /* Remove default bullet points */
+            padding: 0; /* Remove padding */
+        }
+
+        li {
+            margin: 10px 0; /* Space between list items */
+        }
+
+        /* Form Styles */
+        form {
+            margin-top: 20px; /* Space above the form */
+        }
+
+        .cta-button {
+            background-color: #6c5ce7;
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #341f97; /* Darker color on hover */
+        }
+
+        /* Error message styles */
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 500px) {
+            .card {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em; /* Adjust header size on smaller screens */
+            }
+        }
+
+        /* Center the image */
+        .logo {
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            margin-top: 20px; /* Space above the logo */
+        }
+
+        .logo img {
+            width: 30vw; 
+            height: auto;
+            border-radius: 50px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Your Music Recommendations</h1>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <!-- Display the quote based on the emotion -->
+            <h3>{{ quote[1] }}</h3>
+            <h4>{{ quote[0] }}</h4>
+
+            <div class="recommendations">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='images/logo2.png') }}" alt="Melo AI Logo">
+                </div>
+                <h2>Recommended Songs</h2>
+                <ul>
+                    {% for song in recommendations[0] %}
+                    <li>
+                        <strong>{{ song.track_name }}</strong> by {{ song.artist_name }} →
+                        <a href="{{ song.url | replace(' ', '%20') }}" target="_blank">Spotify</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Go Back Button -->
+            <form action="{{ url_for('index') }}" method="get">
+                <button type="submit" class="cta-button">Go Back</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

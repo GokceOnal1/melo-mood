@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melo AI - Recommendations</title>
+
+    <!-- Preconnect and Preload Fonts for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: linear-gradient(to right, #4e54c8, #8f94fb);
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #recommendations-container {
+            max-width: 600px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .song-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #6c63ff;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #5a54cc;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9rem;
+            color: #ddd;
+        }
+
+        #emotion-selector {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        select {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 1rem;
+        }
+        .centered-image {
+    display: block;    /* Make the image a block element */
+    margin-left: auto; /* Center horizontally */
+    margin-right: auto; /* Center horizontally */
+    max-width: 100%;  /* Optional: make the image responsive */
+    height: auto;     /* Maintain aspect ratio */
+}
+    </style>
+</head>
+
+<body>
+    <img class="centered-image" src="{{url_for('static', filename='images/logo7.webp')}}" style="width:20vw; height: auto">
+    <div id="recommendations-container">
+        <h1>How are you feeling today?</h1>
+        
+        <div id="emotion-selector">
+            <form action="{{ url_for('recommend_music') }}" method="get" style="display: inline;">
+                <label for="emotion">Select your emotion:</label>
+                <select id="emotion" name="emotion" required>
+                    <option value="">--Select an emotion--</option>
+                    <option value="happy">Happy</option>
+                    <option value="sad">Sad</option>
+                    <option value="angry">Angry</option>
+                    <option value="calm">Calm</option>
+                    <option value="energetic">Energetic</option>
+                    <option value="anxious">Anxious</option>
+                    <option value="relaxed">Relaxed</option>
+                </select>
+        
+                <button type="submit" class="cta-button">Submit Emotion</button> <!-- Submit button -->
+            </form>
+        </div>
+
+
+        <button id="back-button">Back to Home</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const recommendationsList = document.getElementById('recommendations-list');
+            const backButton = document.getElementById('back-button');
+
+            // Clear the recommendations list before fetching new data
+            recommendationsList.innerHTML = '<p>Loading recommendations...</p>';
+
+            // Fetch recommendations from the server (update the URL as needed)
+            fetch('/recommendations')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Clear the loading message
+                    recommendationsList.innerHTML = '';
+
+                    // Check if data is in the expected format
+                    if (Array.isArray(data) && data.length > 0) {
+                        data.forEach(song => {
+                            const songDiv = document.createElement('div');
+                            songDiv.className = 'song-item';
+                            songDiv.innerHTML = `
+                                <h3>${song.name} by ${song.artist}</h3>
+                                <a href="${song.url}" target="_blank">Listen on Spotify</a>
+                            `;
+                            recommendationsList.appendChild(songDiv);
+                        });
+                    } else {
+                        recommendationsList.innerHTML = '<p>No recommendations available.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching recommendations:', error);
+                    recommendationsList.innerHTML = '<p>Failed to load recommendations. Please try again later.</p>';
+                });
+
+            // Back button action
+            backButton.addEventListener('click', () => {
+                window.location.href = '/'; // Redirect to home
+            });
+        });
+    </script>
+
+    <footer>
+        <p>&copy; 2024 MeloMood. All Rights Reserved.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(90deg, rgba(255, 145, 6, 1) 0%, rgba(255, 225, 10, 1) 100%);
+        }
+
+        .signup-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center; /* Center text in card */
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .signup-card input[type="text"],
+        .signup-card input[type="email"],
+        .signup-card input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .signup-card input[type="submit"] {
+            background-color: #6c5ce7;
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1em;
+            transition: background-color 0.3s, color 0.3s;
+            margin-top: 10px;
+        }
+
+        .signup-card input[type="submit"]:hover {
+            background-color: #341f97;
+            color: #ffffff;
+        }
+
+        .signup-card .username,
+        .signup-card .email,
+        .signup-card .password,
+        .signup-card .password-confirm {
+            margin-bottom: 15px;
+        }
+
+        /* Error message styles */
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* Logo styles */
+        .logo {
+            max-width: 100%; /* Responsive logo */
+            height: auto; /* Maintain aspect ratio */
+            margin-bottom: 1rem; /* Space below logo */
+        }
+    </style>
+</head>
+<body>
+
+<div class="signup-card">
+    <img src="https://media.discordapp.net/attachments/1289609332484472883/1289956521551073490/IMG_0072.png?ex=66fab520&is=66f963a0&hm=11712768b557ccf2348912b1aaa1b21be54ec8297c8cf1bbd0087a1aa0a9487e&=&format=webp&quality=lossless&width=1114&height=1114" alt="MeloMood Logo" class="logo"> <!-- Logo Image -->
+    <h2>SIGN UP</h2>
+    <form action="/signup" method="POST" id="signupForm">
+        <div class="username">
+            <input type="text" name="username" placeholder="Username" required autocomplete="username" aria-label="Username">
+        </div>
+        <div class="email">
+            <input type="email" name="email" placeholder="Email" required autocomplete="email" aria-label="Email">
+        </div>
+        <div class="password">
+            <input type="password" name="password" placeholder="Password" required minlength="8" aria-label="Password">
+        </div>
+        <div class="password-confirm">
+            <input type="password" name="password_confirm" placeholder="Confirm Password" required aria-label="Confirm Password">
+        </div>
+        <div>
+            <input type="submit" value="Sign Up">
+        </div>
+        <div class="error-message" id="error-message" style="display: none;"></div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('signupForm').addEventListener('submit', function(event) {
+        const password = document.querySelector('input[name="password"]').value;
+        const passwordConfirm = document.querySelector('input[name="password_confirm"]').value;
+        const errorMessage = document.getElementById('error-message');
+
+        // Validate passwords match
+        if (password !== passwordConfirm) {
+            event.preventDefault(); // Prevent form submission
+            errorMessage.style.display = 'block';
+            errorMessage.textContent = 'Passwords do not match.';
+        } else {
+            errorMessage.style.display = 'none'; // Hide error message if valid
+        }
+    });
+</script>
+
+</body>
+</html>

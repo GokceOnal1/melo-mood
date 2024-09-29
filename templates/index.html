@@ -1,123 +1,298 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Preconnect to Google Fonts for better performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
+    <!-- Link to the Poppins font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Meta tags for character encoding and responsive design -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Page title -->
     <title>MeloMood - Tune into Your Feelings</title>
+    
+    <!-- Internal CSS Styles -->
     <style>
+        /* Reset box-sizing for all elements to include padding and border in element's total width and height */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0px);
+            }
+        }
+        /* Base styles for the body */
         body {
-            font-family: Arial, sans-serif;
-            background: rgb(255,145,6);
-            background: linear-gradient(90deg, rgba(255,145,6,1) 0%, rgba(255,225,10,1) 100%, rgba(0,212,255,1) 100%);
-            color: #333;
-            margin: 0;
-            padding: 0;
+            /* Apply Poppins font */
+            font-family: 'Poppins', sans-serif;
+            /* Gradient background from orange to yellow to blue */
+            background: linear-gradient(90deg, rgba(255,145,6,1) 0%, rgba(255,225,10,1) 100%);
+            color: #333; /* Base text color */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+            line-height: 1.6; /* Improve readability */
         }
+
+        /* Header section styles */
         header {
-            background-color: #000000;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
+            background-color: #000; /* Black background */
+            color: #fff; /* White text */
+            padding: 40px 20px; /* Top/bottom and left/right padding */
+            text-align: center; /* Center-align text */
         }
+
+        /* Header title styles */
         header h1 {
-            margin: 0;
-            font-size: 2.5em;
+            margin: 0; /* Remove default margin */
+            font-size: 3em; /* Large font size */
+            font-weight: 700; /* Bold font weight */
+            text-shadow: rgba(0, 0, 0, 0.298039) 8px 8px;
+            
+
         }
+
+        /* Header subtitle styles */
         header p {
-            font-size: 1.2em;
+            font-size: 1.3em; /* Slightly larger font size */
+            margin-top: 10px; /* Space above the paragraph */
+            font-weight: 300; /* Light font weight */
         }
+
+        /* Navigation bar styles */
         nav {
-            margin: 20px;
-            text-align: center;
+            background-color: #fff; /* White background */
+            padding: 15px 20px; /* Padding around nav items */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
         }
+
+        /* Navigation links styles */
         nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: #000000;
-            font-weight: bold;
+            margin: 0 15px; /* Horizontal spacing between links */
+            text-decoration: none; /* Remove underline from links */
+            color: #333; /* Dark text color */
+            font-weight: 500; /* Medium font weight */
+            transition: color 0.3s ease; /* Smooth color transition on hover */
         }
+
+        /* Navigation links hover effect */
+        nav a:hover {
+            color: #6c5ce7; /* Change color on hover */
+        }
+
+        /* Container to center content and set max width */
+        .container {
+            max-width: 1200px; /* Maximum width */
+            margin: 0 auto; /* Center the container */
+            padding: 0 20px; /* Horizontal padding */
+        }
+
+        /* General section styles */
         section {
-            text-align: center;
-            padding: 50px;
+            text-align: center; /* Center-align text */
+            padding: 60px 20px; /* Top/bottom and left/right padding */
         }
+
+        /* Section headings styles */
         section h2 {
-            font-size: 2em;
-            color: #2d3436;
+            font-size: 2.5em; /* Large font size */
+            color: #2d3436; /* Dark gray color */
+            margin-bottom: 20px; /* Space below the heading */
         }
+
+        /* Section paragraph styles */
         section p {
-            font-size: 1.2em;
-            max-width: 800px;
-            margin: 0 auto 20px;
+            font-size: 1.2em; /* Larger font size for readability */
+            max-width: 800px; /* Maximum width for better readability */
+            margin: 0 auto 30px; /* Center the paragraph with space below */
+            color: #555; /* Medium gray text color */
         }
+
+        /* Container for call-to-action buttons */
+        .cta-buttons {
+            display: flex; /* Use flexbox for layout */
+            justify-content: center; /* Center the buttons horizontally */
+            gap: 20px; /* Space between buttons */
+            flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+        }
+
+        /* Styles for call-to-action buttons */
         .cta-button {
-            background-color: #6c5ce7;
-            color: #fff;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.2em;
-            cursor: pointer;
+            background-color: #6c5ce7; /* Purple background */
+            color: #fff; /* White text */
+            padding: 15px 30px; /* Padding around text */
+            border: none; /* Remove default border */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 1.1em; /* Slightly larger font */
+            cursor: pointer; /* Pointer cursor on hover */
+            transition: background-color 0.3s ease; /* Smooth background color transition */
+            text-decoration: none; /* Remove underline from links */
+            display: inline-block; /* Inline-block for proper spacing */
         }
+
+        /* Call-to-action buttons hover effect */
         .cta-button:hover {
-            background-color: #341f97;
+            background-color: #341f97; /* Darker purple on hover */
         }
+
+        /* Footer styles */
         footer {
-            background-color: #2d3436;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
+            background-color: #2d3436; /* Dark gray background */
+            color: #fff; /* White text */
+            padding: 30px 20px; /* Padding around content */
+            text-align: center; /* Center-align text */
         }
+
+        /* Footer paragraph styles */
         footer p {
-            margin: 0;
+            margin: 0; /* Remove default margin */
+        }
+
+        /* Social media links container in the footer */
+        footer .social-links a {
+            margin: 0 10px; /* Space between social links */
+            color: #fff; /* White color for icons/text */
+            text-decoration: none; /* Remove underline from links */
+            font-size: 1.2em; /* Larger font size for icons */
+            transition: color 0.3s ease; /* Smooth color transition on hover */
+        }
+
+        /* Social media links hover effect */
+        footer .social-links a:hover {
+            color: #6c5ce7; /* Change color on hover */
+        }
+
+        /* Responsive Styles for Tablets */
+        @media (max-width: 768px) {
+            /* Adjust header title for smaller screens */
+            header h1 {
+                font-size: 2.5em;
+            }
+
+            /* Adjust header subtitle for smaller screens */
+            header p {
+                font-size: 1em;
+            }
+
+            /* Adjust navigation links spacing and size */
+            nav a {
+                margin: 0 10px;
+                font-size: 0.9em;
+            }
+
+            /* Adjust section headings for smaller screens */
+            section h2 {
+                font-size: 2em;
+            }
+
+            /* Adjust section paragraphs for smaller screens */
+            section p {
+                font-size: 1em;
+            }
+
+            /* Adjust call-to-action buttons padding and font size */
+            .cta-button {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+        }
+
+        /* Responsive Styles for Mobile Devices */
+        @media (max-width: 480px) {
+            /* Stack call-to-action buttons vertically */
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            /* Make call-to-action buttons full width on mobile */
+            .cta-button {
+                width: 100%;
+                max-width: 250px; /* Optional: limit the maximum width */
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Header Section -->
     <header>
-        <h1>Welcome to MeloMood</h1>
-        <p>Tune into your feelings and discover the music that matches your mood</p>
+        <img class="fade-in" src="{{url_for('static', filename='images/logo1.png')}}" alt="logo" style="width:10vw; height:auto">
+        <h1 class="fade-in">Welcome to MeloMood</h1> <!-- Main heading -->
+        <p class="fade-in">Tune into your feelings and discover the music that matches your mood</p> <!-- Subheading -->
     </header>
 
+    <!-- Navigation Bar -->
     <nav>
-        <a href="#features">Features</a>
-        <a href="#community">Community</a>
-        <a href="#contact">Contact Us</a>
+        <div class="container"> <!-- Container to center nav items -->
+            <a href="#features">Features</a> <!-- Link to Features section -->
+            <a href="#community">Community</a> <!-- Link to Community section -->
+        </div>
     </nav>
 
+    <!-- Introductory Section -->
     <section id="intro">
-        <h2>How are you feeling today?</h2>
-        <p>MeloMood is a friendly and engaging app designed to help you check in on your feelings and discover personalized music to match your mood. Whether you're feeling happy, sad, calm, or energetic, we’ve got the perfect soundtrack for you.</p>
-        <form action="{{ url_for('login') }}" method="get">
-            <button type="submit" class="cta-button">Get Started</button>
-        </form>
+        <div class="container"> <!-- Container to center content -->
+            <img class="fade-in" src="{{url_for('static', filename='images/logo2.png')}}" alt="logo" style="width:30vw; height:auto">
+            <h2>How are you feeling today?</h2> <!-- Section heading -->
+            <p>MeloMood is a friendly and engaging app designed to help you check in on your feelings and discover personalized music to match your mood. Whether you're feeling happy, sad, calm, or energetic, we’ve got the perfect soundtrack for you.</p> <!-- Section description -->
+            
+            <!-- Call-to-Action Buttons -->
+            <div class="cta-buttons">
+                <!-- Get Started Button -->
+                <form action="login" method="get" style="display: inline;"> <!-- Form for login -->
+                    <button type="submit" class="cta-button">Get Started</button> <!-- Submit button -->
+                </form>
+                
+                <!-- Sign Up Button -->
+                <form action="{{ url_for('signup') }}" method="get" style="display: inline;"> <!-- Form for sign up -->
+                    <button type="submit" class="cta-button">Sign Up</button> <!-- Submit button -->
+                </form>
+            </div>
+        </div>
     </section>
 
+    <!-- Features Section -->
     <section id="features">
-        <h2>Features</h2>
-        <p>Personalized playlists, mood tracking, and a supportive community make MeloMood more than just a music app. It's your daily companion for both mental wellness and musical enjoyment.</p>
+        <div class="container"> <!-- Container to center content -->
+            <h2>Features</h2> <!-- Section heading -->
+            <p>Personalized playlists, mood tracking, and a supportive community make MeloMood more than just a music app. It's your daily companion for both mental wellness and musical enjoyment.</p> <!-- Section description -->
+        </div>
     </section>
 
+    <!-- Community Section -->
     <section id="community">
-        <h2>Join Our Community</h2>
-        <p>Connect with others, share your musical journey, and discover new ways to feel better through the power of music. Join our MeloMood community and uplift each other!</p>
+        <div class="container"> <!-- Container to center content -->
+            <h2>Join Our Community</h2> <!-- Section heading -->
+            <p>Connect with others, share your musical journey, and discover new ways to feel better through the power of music. Join our MeloMood community and uplift each other!</p> <!-- Section description -->
+        </div>
     </section>
 
+    <!-- Footer Section -->
     <footer>
-        <p>&copy; 2024 MeloMood. All Rights Reserved.</p>
+        <div class="container"> <!-- Container to center content -->
+            <p>&copy; 2024 MeloMood. All Rights Reserved.</p> <!-- Copyright -->
+            
+            <!-- Social Media Links -->
+            <div class="social-links">
+                <a href="https://facebook.com" aria-label="Facebook" target="_blank" rel="noopener noreferrer">Facebook</a> <!-- Facebook link -->
+                <a href="https://twitter.com" aria-label="Twitter" target="_blank" rel="noopener noreferrer">Twitter</a> <!-- Twitter link -->
+                <a href="https://instagram.com" aria-label="Instagram" target="_blank" rel="noopener noreferrer">Instagram</a> <!-- Instagram link -->
+                <a href="https://linkedin.com" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">LinkedIn</a> <!-- LinkedIn link -->
+            </div>
+        </div>
     </footer>
-</body>
-</html>
-    
 </body>
 </html>
