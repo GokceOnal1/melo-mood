@@ -2,7 +2,8 @@ from flask import *
 from flask import Flask
 from flask import render_template
 import recommendation as backend
-
+import nltk
+nltk.download('vader_lexicon')
 app = Flask(__name__)
 
 @app.route("/")
@@ -12,6 +13,10 @@ def index():
 @app.route("/login")
 def login():
     return render_template("login.html")
+
+@app.route("/meloai")
+def meloai():
+    return render_template("bot.html")
 
 @app.route('/recommend', methods=['GET'])
 def recommend_music():
@@ -44,3 +49,5 @@ def recommend_music():
         'recommendations': recommendations
     })
 
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5001)

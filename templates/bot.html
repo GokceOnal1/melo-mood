@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Melo AI</title>
 </head>
 <body>
     <!DOCTYPE html>
@@ -81,37 +81,15 @@
         footer p {
             margin: 0;
         }
+        .melobot {
+            width: 30vw;
+            height: auto;
+            border-radius: 50px;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to MeloMood</h1>
-        <p>Tune into your feelings and discover the music that matches your mood</p>
-    </header>
-
-    <nav>
-        <a href="#features">Features</a>
-        <a href="#community">Community</a>
-        <a href="#contact">Contact Us</a>
-    </nav>
-
-    <section id="intro">
-        <h2>How are you feeling today?</h2>
-        <p>MeloMood is a friendly and engaging app designed to help you check in on your feelings and discover personalized music to match your mood. Whether you're feeling happy, sad, calm, or energetic, we’ve got the perfect soundtrack for you.</p>
-        <form action="{{ url_for('login') }}" method="get">
-            <button type="submit" class="cta-button">Get Started</button>
-        </form>
-    </section>
-
-    <section id="features">
-        <h2>Features</h2>
-        <p>Personalized playlists, mood tracking, and a supportive community make MeloMood more than just a music app. It's your daily companion for both mental wellness and musical enjoyment.</p>
-    </section>
-
-    <section id="community">
-        <h2>Join Our Community</h2>
-        <p>Connect with others, share your musical journey, and discover new ways to feel better through the power of music. Join our MeloMood community and uplift each other!</p>
-    </section>
+    <img class="melobot" src="{{url_for('static', filename='images/logo2.png')}}">
 
     <footer>
         <p>&copy; 2024 MeloMood. All Rights Reserved.</p>

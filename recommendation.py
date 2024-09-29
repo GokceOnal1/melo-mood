@@ -13,7 +13,6 @@ nltk.download('vader_lexicon')
 # Load environment variables
 load_dotenv()
 
-
 # Load the dataset
 songs_data = pds.read_csv("data/tcc_ceds_music.csv")
 
@@ -62,6 +61,9 @@ def get_recommendations(track_name, num_recommendations=10):
     # Select top similar songs
     sim_scores = sim_scores[1:num_recommendations + 1]
 
+    # Randomize the top similar songs for variety
+    random.shuffle(sim_scores)  # Shuffle the similar songs to add randomness
+
     # Get indices of the recommended songs
     sim_index = [i[0] for i in sim_scores]
     dataframe = songs_data.iloc[sim_index][['track_name', 'artist_name', 'lyrics', 'energy']]
@@ -90,8 +92,9 @@ def filter_songs_by_emotion(emotion, num_recommendations=10):
     energy_threshold = EMOTION_MAP.get(emotion, 0.5)
 
     # Filter songs by energy level based on the user's emotion
-    filtered_songs = songs_data[songs_data['energy'] >= energy_threshold].head(num_recommendations)
+    filtered_songs = songs_data[songs_data['energy'] >= energy_threshold]
+
+    # Randomly shuffle the filtered songs
+    filtered_songs = filtered_songs.sample(frac=1).head(num_recommendations)  # Randomize and pick top N
 
     return filtered_songs[['track_name', 'artist_name', 'energy']].to_dict(orient='records')
-
-

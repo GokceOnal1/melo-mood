@@ -77,11 +77,13 @@
     </style>
     <!-- Google API Script -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <!-- JWT Decode Library -->
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
 </head>
 <body>
     <header>
         <div class="Logo">
-            <img src="logo.png" alt="Melo Mood Logo">
+            <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="Melo Mood Logo">
         </div>
         <h1>Melo Mood</h1>
     </header>
@@ -116,32 +118,35 @@
                      data-size="large"
                      data-logo_alignment="left">
                 </div>
-                
-                <!-- Google Sign-Up Button (same as sign-in but labeled differently) -->
-                <div style="margin-top: 10px;">
-                    <button class="g_id_signin"
-                        data-type="standard"
-                        data-shape="rectangular"
-                        data-theme="outline"
-                        data-text="Sign Up with Google"
-                        data-size="large"
-                        data-logo_alignment="left">
-                    </button>
-                </div>
             </div>
         </div>
     </div>
 
     <script>
         function handleCredentialResponse(response) {
-            const data = jwt_decode(response.credential); // JWT decoding library needed
+            const data = jwt_decode(response.credential);
             console.log("User information from Google:", data);
 
-            // Use the data to create an account in your backend
-            // Example of data:
-            // data.name
-            // data.email
-            // data.picture (profile picture URL)
+            // Send the user data to your backend for account creation
+            fetch('/api/create_account', { // Update this URL to your actual endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: data.name,
+                    email: data.email,
+                    picture: data.picture
+                })
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log('Account creation result:', result);
+                // Handle success or error
+            })
+            .catch(error => {
+                console.error('Error during account creation:', error);
+            });
         }
     </script>
 </body>
